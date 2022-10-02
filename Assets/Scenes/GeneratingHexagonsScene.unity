@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexagonPrefab: {fileID: 4708660111764976056, guid: 7bcdf3882f2f3564e8aa21b9eb75466a, type: 3}
-  generatingRadius: 2
+  sideLength: 3
 --- !u!1001 &8911545808725079822
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,9 +5,9 @@ public class HexagonsGenerator : MonoBehaviour
     [SerializeField]
     private GameObject hexagonPrefab;
     [SerializeField]
-    private int generatingRadius;
+    private int sideLength;
     
-    private float horizontalSpacing = 1.7f, verticalSpacing = 0.5f;
+    private float horizontalSpacing = 0.85f, verticalSpacing = 1f;
 
     private void Awake()
     {
@@ -16,22 +16,27 @@ public class HexagonsGenerator : MonoBehaviour
 
     private void generateHexagons()
     {
-        for (int row = -generatingRadius * 2; row <= generatingRadius * 2; row++)
+        int hexagonsInColumn = sideLength;
+
+        for (int column = -sideLength + 1; column < sideLength; column++)
         {
             float rowOffset = 0;
-            int evenModifier = 0;
-
-            if (row % 2 != 0)
+            
+            if (column % 2 != 0)
             {
-                rowOffset = horizontalSpacing / 2;
-                evenModifier = 1;
+                rowOffset = verticalSpacing / 2;
             }
 
-            for (int column = -generatingRadius + 1; column < generatingRadius - evenModifier; column++)
+            for (int row = -hexagonsInColumn / 2; row < (hexagonsInColumn + 1) / 2; row++)
             {
-                Vector3 position = new Vector3(column * horizontalSpacing + rowOffset, row * verticalSpacing);
+                Vector3 position = new Vector3(column * horizontalSpacing, row * verticalSpacing + rowOffset);
                 Instantiate(hexagonPrefab, transform.position + position, Quaternion.identity, parent: this.transform);
             }
+
+            if (column < 0)
+                hexagonsInColumn++;
+            else
+                hexagonsInColumn--;
         }
     }
 }
